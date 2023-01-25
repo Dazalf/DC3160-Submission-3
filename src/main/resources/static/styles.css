@@ -1,0 +1,29 @@
+@charset "ISO-8859-1";
+
+
+/*
+* Credit goes to Josh Crozier, from https://stackoverflow.com/questions/19461521/how-to-center-an-element-horizontally-and-vertically,
+* for the template code here which I've customized to enable me to centre my text better. 
+*/
+
+html, body, .container {
+    height: 100%;
+}
+
+/* Homepage */
+#welcometext {
+    position: relative;
+    top: 20%;
+    left: 0;
+    right: 0;
+}
+
+/* Sign-up welcome message */
+#welcomemessage {
+	position: relative;
+    top: 50%;
+    left: 0;
+    right: 0;
+}
+
+
