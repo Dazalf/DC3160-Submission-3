@@ -11,7 +11,7 @@ import eat3160.HLSP22.repository.GoalsRepository;
 public class GoalsService {
 	
 	@Autowired
-	 private GoalsRepository goalsRepository;
+	private GoalsRepository goalsRepository;
 	
 	/**
 	 * Get the Goals record of a specific user by ID.
