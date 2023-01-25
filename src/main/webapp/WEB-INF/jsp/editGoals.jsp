@@ -34,12 +34,12 @@
 						<div class="row"> 	 		
 							<div class="form-group pt-3 col">
 					   			<label for="Sbepw">Strength based exercises per week:</label>
-					  			<input type="number" class="form-control" name="weeklyStrengthGoal" id="Sbepw" min="0" value="${goals.weeklyStrengthGoal}" required />     
+					  			<input type="number" class="form-control" name="weeklyStrengthExercise" id="Sbepw" min="0" value="${goals.weeklyStrengthExercise}" required />     
 					 		</div>
 					 		
 					 		<div class="form-group pt-3 col">
 					   			<label for="Abepw">Aerobic exercises per week:</label>
-					  			<input type="number" class="form-control" name="weeklyAerobicGoal" id="Abepw" min="0" value="${goals.weeklyAerobicGoal}" required />    
+					  			<input type="number" class="form-control" name="weeklyAerobicExercise" id="Abepw" min="0" value="${goals.weeklyAerobicExercise}" required />    
 					 		</div>
 				 		</div>
 			 	  		

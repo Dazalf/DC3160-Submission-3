@@ -4,14 +4,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import eat3160.HLSP22.model.Goals;
-import eat3160.HLSP22.model.GoalsBean;
+import eat3160.HLSP22.model.GoalsEntity;
+import eat3160.HLSP22.service.GoalsService;
 
 
 /**
@@ -23,9 +24,12 @@ import eat3160.HLSP22.model.GoalsBean;
 @Controller
 public class GoalsController {
 	
+	@Autowired
+	private GoalsService goalsService;
+	
 	@ModelAttribute("goals")
-	public GoalsBean createGoalObject() {
-		return new GoalsBean();
+	public GoalsEntity createGoalObject() {
+		return new GoalsEntity();
 	}
 	
 	@RequestMapping("/view")
@@ -38,8 +42,7 @@ public class GoalsController {
 			response.sendError(403);
 			return null;
 		}else {
-			Goals goals = new Goals();
-			model.addAttribute("goals",  goals.getUserGoals((Integer)session.getAttribute("userID")));
+			model.addAttribute("goals",  goalsService.findByUserId((Integer)session.getAttribute("userID")));
 			return "viewGoals";
 		}	
 		
@@ -55,14 +58,13 @@ public class GoalsController {
 			response.sendError(403);
 			return null;
 		}else {
-			Goals goals = new Goals();
-			model.addAttribute("goals",  goals.getUserGoals((Integer)session.getAttribute("userID")));
+			model.addAttribute("goals",  goalsService.findByUserId((Integer)session.getAttribute("userID")));
 			return "editGoals";
 		}		
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String updateUserDetails(@ModelAttribute("goals") GoalsBean goalsBean, HttpServletResponse response, HttpSession session, Model model) 
+	public String updateUserDetails(@ModelAttribute("goals") GoalsEntity goalsEntity, HttpServletResponse response, HttpSession session, Model model) 
 			throws Exception {	
 		
 		if(session.getAttribute("loggedIn") == null || (boolean)session.getAttribute("loggedIn") == false) {
@@ -71,9 +73,9 @@ public class GoalsController {
 			response.sendError(403);
 			return null;
 		}else {
-			Goals goals = new Goals();
-			goals.updateUserGoals((Integer)session.getAttribute("userID"), goalsBean); 
-
+			//goalsService.save((Integer)session.getAttribute("userID"), goalsEntity);
+			goalsEntity.setUserID((Integer)session.getAttribute("userID"));
+			goalsService.save(goalsEntity);
 			return "redirect:/goals/view";
 			
 		}
