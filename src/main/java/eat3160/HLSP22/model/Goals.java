@@ -19,6 +19,8 @@ public class Goals {
 	 * Get the goals of a user based on a specific user id, store them within a java bean GoalsBean, and return this bean. 
 	 * @param userID
 	 * @return a goals object. Returns null if no row found for specified user. 
+	 * 
+	 * MOVED TO GOALSSERVICE
 	 */
 	 
 	public GoalsBean getUserGoals(int userID) {
@@ -51,6 +53,8 @@ public class Goals {
 	 * @param strengthGoal
 	 * @param aerobicGoal
 	 * @return
+	 * 
+	 * MOVED TO GOALSSERVICE
 	 */
 	 
 	private void update(int userID, GoalsBean goals) {
