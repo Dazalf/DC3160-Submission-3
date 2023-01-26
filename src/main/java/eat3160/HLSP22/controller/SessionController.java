@@ -3,6 +3,7 @@ package eat3160.HLSP22.controller;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import eat3160.HLSP22.model.Users;
+import eat3160.HLSP22.service.StrengthExerciseService;
+import eat3160.HLSP22.service.UserService;
 
 /**
  * This controller handles requests related to the starting and ending of a session, i.e., logging in and logging out. 
@@ -19,6 +22,9 @@ import eat3160.HLSP22.model.Users;
 
 @Controller
 public class SessionController {
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping("/loginform")
 	public String getLoginForm(HttpSession session, HttpServletResponse response) 
@@ -40,11 +46,9 @@ public class SessionController {
 		
 		if(session.getAttribute("loggedIn") == null || (boolean)session.getAttribute("loggedIn") == false) {
 			
-			Users users = new Users();
-			
-			if(users.validateUser(email, password)) {
+			if(userService.validateUser(email, password)) {
 				session.setAttribute("loggedIn", true);
-				session.setAttribute("userID", users.getUserID(email));
+				session.setAttribute("userID", userService.getUserIDByEmail(email));
 
 				response.sendRedirect("/homepage");
     			return null;
