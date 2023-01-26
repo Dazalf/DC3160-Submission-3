@@ -20,10 +20,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.google.gson.Gson;
 
 import eat3160.HLSP22.model.AerobicExerciseBean;
+import eat3160.HLSP22.model.AerobicExerciseEntity;
 import eat3160.HLSP22.model.AerobicExercises;
 import eat3160.HLSP22.model.StrengthExerciseBean;
 import eat3160.HLSP22.model.StrengthExerciseEntity;
 import eat3160.HLSP22.model.StrengthExercises;
+import eat3160.HLSP22.service.AerobicExerciseService;
 import eat3160.HLSP22.service.GoalsService;
 import eat3160.HLSP22.service.StrengthExerciseService;
 
@@ -40,6 +42,9 @@ public class ExerciseController {
 	
 	@Autowired
 	private StrengthExerciseService strengthExerciseService;
+	
+	@Autowired
+	private AerobicExerciseService aerobicExerciseService;
 	
 	@ModelAttribute("todaysDate")
 	public LocalDate createDateObject() {
@@ -64,8 +69,9 @@ public class ExerciseController {
 			//UPDATED -> WORKING
 			model.addAttribute("strengthExercises", strengthExerciseService.findAllByUserIdAndDate(userid, todaysDate.toString()));
 			
-	    	AerobicExercises ae = new AerobicExercises();
-			model.addAttribute("aerobicExercises", ae.getExercises(userid, todaysDate.toString()));
+			//UPDATED -> working
+
+			model.addAttribute("aerobicExercises", aerobicExerciseService.findAllByUserIdAndDate(userid, todaysDate.toString()));
 			
 			return "viewExercises";
 		}	
@@ -129,10 +135,19 @@ public class ExerciseController {
 				favouriteBoolean = true;
 			}
 			
-			AerobicExercises ae = new AerobicExercises();
+			//UPDATED -> working
+			
+			AerobicExerciseEntity s = new AerobicExerciseEntity();
 			int userid = (Integer)session.getAttribute("userID");
 			
-			ae.create(userid, exerciseName, location, steps, dateOfExercise, favouriteBoolean);
+			s.setUserID(userid);
+			s.setExerciseName(exerciseName);
+			s.setLocation(location);
+			s.setSteps(steps);
+			s.setDateOfExercise(dateOfExercise);
+			s.setFavourite(favouriteBoolean);
+    		
+			aerobicExerciseService.save(s);
     		
     		//Add an attribute to the request to let them exercise page know there was a successful exercise creation. 
     		session.setAttribute("SuccessfulExerciseCreation", "Aerobic exercise successfully created");
@@ -203,10 +218,11 @@ public class ExerciseController {
 			return null;
 		}else {
 			
-			AerobicExercises ae = new AerobicExercises();
+			//UPDATED -> working
+			
 			int userid = (Integer)session.getAttribute("userID");
-			//Get the bean of this record from the model. 
-    		AerobicExerciseBean aeb = ae.getExercise(id, userid);
+			//Get the entity of this record from the model. 
+			AerobicExerciseEntity aeb = aerobicExerciseService.findByUserIdAndId(id, userid);;
     		
     		//Check if null. If null, redirect to the exercises page. If not null, respond to client with a view of the exercise. 
     		if(aeb != null) {
@@ -275,9 +291,20 @@ public class ExerciseController {
 				favouriteBoolean = true;
 			}
 			
-			AerobicExercises ae = new AerobicExercises();
+			//UPDATED -> working
 			
-			ae.update(exerciseID, exerciseName, location, steps, dateOfExercise, favouriteBoolean);
+			AerobicExerciseEntity s = new AerobicExerciseEntity();
+			int userid = (Integer)session.getAttribute("userID");
+			
+			s.setId(exerciseID);
+			s.setUserID(userid);
+			s.setExerciseName(exerciseName);
+			s.setLocation(location);
+			s.setSteps(steps);
+			s.setDateOfExercise(dateOfExercise);
+			s.setFavourite(favouriteBoolean);
+    		
+			aerobicExerciseService.save(s);
     		
     		//Add an attribute to the request to let them exercise page know there was a successful exercise creation. 
     		session.setAttribute("SuccessfulExerciseUpdate", "Aerobic exercise updated successfully!");
@@ -349,15 +376,26 @@ public class ExerciseController {
 			return null;
 		}else {
 			
-			AerobicExercises ae = new AerobicExercises();
+			//UPDATED -> working
+			
 			int userid = (Integer)session.getAttribute("userID");
 			
-			ae.delete(exerciseID, userid);
-    		
-    		//Add an attribute to the request to let them exercise page know there was a successful exercise creation. 
-    		session.setAttribute("SuccessfulExerciseDeletion", "Aerobic exercise deleted successfully!");
+			//Get the entity of this record from the model. 
+			AerobicExerciseEntity aeb = aerobicExerciseService.findByUserIdAndId(exerciseID, userid);
 			
-			return "redirect:/exercises/view";
+			//Check if null. If null, redirect to the exercises page. If not null, delete the exercise and return view. 
+			if(aeb != null) {
+				
+				aerobicExerciseService.delete(exerciseID);	
+	    		//Add an attribute to the request to let them exercise page know there was a successful exercise creation. 
+	    		session.setAttribute("SuccessfulExerciseDeletion", "Aerobic exercise deleted successfully!");
+	    		
+	    		return "redirect:/exercises/view";
+	    		
+			}else {
+				return "redirect:/exercises/view";
+			}
+
 		}	
 	}
 	
@@ -410,10 +448,12 @@ public class ExerciseController {
 		response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
        
+        
+		//UPDATED -> working
+        
 		int userid = (Integer)session.getAttribute("userID");
-		AerobicExercises ae = new AerobicExercises();
 		
-		ArrayList<AerobicExerciseBean> list = ae.getExercises(userid, date);
+		ArrayList<AerobicExerciseEntity> list = aerobicExerciseService.findAllByUserIdAndDate(userid, date);
         
         try {
         	//GSON library, i.e., https://github.com/google/gson, enables me to convert my array list into a JSON array, which is a life saver :). 
@@ -427,7 +467,7 @@ public class ExerciseController {
 	public void updateStrengthExercisesAJAX(HttpSession session, HttpServletResponse response, Model model, @RequestParam String date) 
 			throws Exception {
 		
-		//UPDATED -> Not tested
+		//UPDATED -> working
 		
 		//Update the session attribute date with the selected date by the user. 	
 		model.addAttribute("todaysDate", LocalDate.parse(date));

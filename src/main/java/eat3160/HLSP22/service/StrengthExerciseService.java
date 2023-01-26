@@ -15,7 +15,7 @@ public class StrengthExerciseService {
 	private StrengthExerciseRepository strengthExerciseRepository;
 	
 	/**
-	 * Not tested yet
+	 * Get all exercises that match the specified user id and date.
 	 * 
 	 * @param userID
 	 * @param date
@@ -31,7 +31,7 @@ public class StrengthExerciseService {
 	}
 	
 	/**
-	 * Not tested yet
+	 * Get a single exercise record that matches the specified record id and user id.
 	 * 
 	 * @param id
 	 * @param userID
@@ -44,7 +44,6 @@ public class StrengthExerciseService {
 	/**
 	 * Save the entity in the parameter into the database.
 	 * 
-	 * Not tested yet
 	 * 
 	 * If a record already exists for the specified entity, update it.
 	 * If a record doesn't exist for the specified entity, create one.
@@ -56,7 +55,7 @@ public class StrengthExerciseService {
 	}
 	
 	/**
-	 * Not tested yet. 
+	 * Delete a record specified by its record id.
 	 * 
 	 * @param id
 	 */
