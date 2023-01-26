@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,7 +22,10 @@ import com.google.gson.Gson;
 import eat3160.HLSP22.model.AerobicExerciseBean;
 import eat3160.HLSP22.model.AerobicExercises;
 import eat3160.HLSP22.model.StrengthExerciseBean;
+import eat3160.HLSP22.model.StrengthExerciseEntity;
 import eat3160.HLSP22.model.StrengthExercises;
+import eat3160.HLSP22.service.GoalsService;
+import eat3160.HLSP22.service.StrengthExerciseService;
 
 
 /**
@@ -33,6 +37,9 @@ import eat3160.HLSP22.model.StrengthExercises;
 @Controller
 @SessionAttributes("todaysDate")
 public class ExerciseController {
+	
+	@Autowired
+	private StrengthExerciseService strengthExerciseService;
 	
 	@ModelAttribute("todaysDate")
 	public LocalDate createDateObject() {
@@ -54,11 +61,11 @@ public class ExerciseController {
 			
 			int userid = (Integer)session.getAttribute("userID");
 			
-			AerobicExercises ae = new AerobicExercises();
-			model.addAttribute("aerobicExercises", ae.getExercises(userid, todaysDate.toString()));
+			//UPDATED -> WORKING
+			model.addAttribute("strengthExercises", strengthExerciseService.findAllByUserIdAndDate(userid, todaysDate.toString()));
 			
-	    	StrengthExercises se = new StrengthExercises();
-			model.addAttribute("strengthExercises", se.getExercises(userid, todaysDate.toString()));
+	    	AerobicExercises ae = new AerobicExercises();
+			model.addAttribute("aerobicExercises", ae.getExercises(userid, todaysDate.toString()));
 			
 			return "viewExercises";
 		}	
@@ -160,11 +167,22 @@ public class ExerciseController {
 				favouriteBoolean = true;
 			}
 			
-			StrengthExercises se = new StrengthExercises();
+			//UPDATED -> Working
+			
+			StrengthExerciseEntity s = new StrengthExerciseEntity();
 			int userid = (Integer)session.getAttribute("userID");
 			
-			se.create(userid, exerciseName, location, muscleGroup, sets, reps, dateOfExercise, favouriteBoolean);
+			s.setUserID(userid);
+			s.setExerciseName(exerciseName);
+			s.setLocation(location);
+			s.setMuscleGroup(muscleGroup);
+			s.setSets(sets);
+			s.setReps(reps);
+			s.setDateOfExercise(dateOfExercise);
+			s.setFavourite(favouriteBoolean);
     		
+			strengthExerciseService.save(s);
+			
     		//Add an attribute to the request to let them exercise page know there was a successful exercise creation. 
     		session.setAttribute("SuccessfulExerciseCreation", "Strength exercise successfully created");
 			
@@ -211,10 +229,13 @@ public class ExerciseController {
 			return null;
 		}else {
 			
-			StrengthExercises se = new StrengthExercises();
+			
+			//UPDATED -> Working 
+			
 			int userid = (Integer)session.getAttribute("userID");
-			//Get the bean of this record from the model. 
-			StrengthExerciseBean seb = se.getExercise(id, userid);
+			//Get the entity of this record from the model. 
+			StrengthExerciseEntity seb = strengthExerciseService.findByUserIdAndId(id, userid);
+
     		
     		//Check if null. If null, redirect to the exercises page. If not null, respond to client with a view of the exercise. 
     		if(seb != null) {
@@ -291,9 +312,22 @@ public class ExerciseController {
 				favouriteBoolean = true;
 			}
 			
-			StrengthExercises se = new StrengthExercises();
+			//UPDATED -> Working
 			
-			se.update(exerciseID, exerciseName, location, muscleGroup, sets, reps, dateOfExercise, favouriteBoolean);
+			StrengthExerciseEntity s = new StrengthExerciseEntity();
+			int userid = (Integer)session.getAttribute("userID");
+			
+			s.setId(exerciseID);
+			s.setUserID(userid);
+			s.setExerciseName(exerciseName);
+			s.setLocation(location);
+			s.setMuscleGroup(muscleGroup);
+			s.setSets(sets);
+			s.setReps(reps);
+			s.setDateOfExercise(dateOfExercise);
+			s.setFavourite(favouriteBoolean);
+    		
+			strengthExerciseService.save(s);
     		
     		//Add an attribute to the request to let them exercise page know there was a successful exercise creation. 
     		session.setAttribute("SuccessfulExerciseUpdate", "Strength exercise updated successfully!");
@@ -338,15 +372,26 @@ public class ExerciseController {
 			return null;
 		}else {
 			
-			StrengthExercises se = new StrengthExercises();
+			//UPDATED -> Working
+			
 			int userid = (Integer)session.getAttribute("userID");
-			
-			se.delete(exerciseID, userid);
+			//Get the entity of this record from the model. 
+			StrengthExerciseEntity seb = strengthExerciseService.findByUserIdAndId(exerciseID, userid);
+
     		
-    		//Add an attribute to the request to let them exercise page know there was a successful exercise creation. 
-    		session.setAttribute("SuccessfulExerciseDeletion", "Strength exercise deleted successfully!");
-			
-			return "redirect:/exercises/view";
+    		//Check if null. If null, redirect to the exercises page. If not null, delete the exercise and return view. 
+    		if(seb != null) {
+    			strengthExerciseService.delete(exerciseID);
+    			
+        		//Add an attribute to the request to let them exercise page know there was a successful exercise creation. 
+        		session.setAttribute("SuccessfulExerciseDeletion", "Strength exercise deleted successfully!");
+    			
+    			return "redirect:/exercises/view";
+    		}else {
+    			return "redirect:/exercises/view";
+    		}
+    		
+
 		}	
 	}	
 	
@@ -382,6 +427,8 @@ public class ExerciseController {
 	public void updateStrengthExercisesAJAX(HttpSession session, HttpServletResponse response, Model model, @RequestParam String date) 
 			throws Exception {
 		
+		//UPDATED -> Not tested
+		
 		//Update the session attribute date with the selected date by the user. 	
 		model.addAttribute("todaysDate", LocalDate.parse(date));
 		
@@ -389,9 +436,8 @@ public class ExerciseController {
         PrintWriter out = response.getWriter();
         
 		int userid = (Integer)session.getAttribute("userID");
-		StrengthExercises se = new StrengthExercises();
 		
-        ArrayList<StrengthExerciseBean> list = se.getExercises(userid, date);
+        ArrayList<StrengthExerciseEntity> list = strengthExerciseService.findAllByUserIdAndDate(userid, date);
         
         try {
         	//GSON library, i.e., https://github.com/google/gson, enables me to convert my array list into a JSON array, which is a life saver :). 
