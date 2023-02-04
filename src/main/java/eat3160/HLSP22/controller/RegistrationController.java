@@ -57,8 +57,7 @@ public class RegistrationController {
 			boolean result = userService.save(user);
 			
     		if(result == true) {
- 
-    			session.setAttribute("SuccessfulRegistration", true);
+    			
     			response.sendRedirect("/loginform");
     			return null;
     		
