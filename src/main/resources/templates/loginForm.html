@@ -4,13 +4,13 @@
 	<head>
 	    <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
-	    <title>Homepage</title>
+	    <title>Login form</title>
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
  	</head>
   	
   	<body class="d-flex flex-column h-100">
   
-	<div th:include="index.html::navbar"></div>
+	<section th:include="navigation.html::navbar"></section>
      
      <main role="main" class="flex-shrink-0 w-50 mx-auto my-auto">
 	    <div class="container pt-3 border">
@@ -25,7 +25,7 @@
 	    		<button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
 	    	</div> 		
 	    	
-	    	<form action="/login" method="POST">
+	    	<form th:action="@{/login}" method="POST">
 	    		
 	    		<div class="row pt-3">
 		    		<div class="form-group col">
@@ -50,7 +50,7 @@
 	    </div>
 	   </main>
     
-    <div th:include="index.html::footer"></div>
+    <section class="mt-auto" th:include="footer.html::footer"></section>
     
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
