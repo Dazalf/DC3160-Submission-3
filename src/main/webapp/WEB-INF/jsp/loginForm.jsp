@@ -32,7 +32,7 @@
 		    </c:if>
 	    	
 	<!--    This shows a message letting the user know their account has been created successfully. The session attribute is created 
-		    by the Account controller, who redirected the user here after a successful account creation. -->
+		    by the Registration controller, who redirected the user here after a successful account creation. -->
 	    	<c:if test = "${sessionScope.SuccessfulRegistration eq true}">
 	    		<div class="alert alert-success alert-dismissible" role="alert"> 
 	    			Account creation has been successful! Please log in. 

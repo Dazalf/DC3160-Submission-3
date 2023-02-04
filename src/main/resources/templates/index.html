@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org" >
+	
+	<head>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <title>Homepage</title>
+	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+ 	</head>
+  	
+  	<body class="d-flex flex-column h-100">
+  
+		<div th:fragment="navbar">
+			<div th:switch="${session.loggedIn}">
+				<nav th:case="true" class="navbar navbar-expand-sm navbar-dark bg-dark px-3">
+					<div class="container">
+						<h1 class="navbar-brand">HLSP</h1>
+						<button type="button" data-bs-toggle="collapse"
+							data-bs-target="#navbarC" class="navbar-toggler"
+							aria-controls="navbarC" aria-expanded="false"
+							aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarC">
+							<ul class="navbar-nav">
+								<li class="nav-item"><a class="nav-link active" href="/homepage">About us</a></li>
+								<li class="nav-item"><a class="nav-link active" href="/exercises/view">Exercises</a></li>
+								<li class="nav-item"><a class="nav-link active" href="/goals/view">Goals</a></li>
+								<li class="nav-item"><a class="nav-link active" href="/recommendations">Recommendations</a></li>
+								<li class="nav-item"><a class="nav-link active" href="/reports">Reports</a></li>
+							</ul>
+							<ul class="navbar-nav ms-auto">
+								<li class="nav-item dropdown"><a
+									class="nav-link dropdown-toggle" href="#" id="nbDropdown"
+									role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										Profile </a>
+									<ul class="dropdown-menu dropdown-menu-end"
+										aria-labelledby="nbDropdown">
+										<li><a class="dropdown-item" href="/account/view">Details</a></li>
+										<li><a class="dropdown-item" href="/logout">Log out</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+				<nav th:case="*" class="navbar navbar-expand-sm navbar-dark bg-dark px-3">
+					<div class="container">
+						<h1 class="navbar-brand">HLSP</h1>
+						<button type="button" data-bs-toggle="collapse" data-bs-target="#navbarC" class="navbar-toggler" aria-controls="navbarC" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarC">
+							<ul class="navbar-nav">
+								<li class="nav-item"><a class="nav-link active" href="/homepage">About us</a></li>
+							</ul>
+							<ul class="navbar-nav ms-auto">
+								<li class="nav-item"><a class="nav-link active" href="/loginform">Log in</a></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>
+     
+     <main role="main" class="flex-shrink-0">
+	     
+	     <section class="bg-dark text-light text-center p-4">
+	     	<div class="container">
+	     		<div class="row">
+	     			<div class="col-12">
+	     				<h1> <span class="text-success"> Level up </span>  your exercise routine</h1>
+	     			</div>
+	     			<div class="col pt-3">
+						<p> 
+							HLSP is a service that provides personalized exercise recommendations all based of the information you provide us.
+							With us, you can easily track your exercises each day, let us know your exercising preferences e.g., 
+							whether you go to your gym or the park and set your goals! 
+							We pride ourselves on our quick and easy to use design to enable the best use of time in your busy lifestyle 
+						</p>
+						
+						<div th:if="${session.loggedIn != true}" class="row">
+							<div class="col">
+						  		<div class="pt-3">
+						  			<a class="btn btn-success btn-lg" href="/signupform"> Sign up now </a>  
+						  		</div>
+					  		</div>
+					  	</div>
+					  						
+	     			</div>
+	     		</div>
+	     	</div>
+	     </section>
+	     
+	     <section class="p-5 text-center">
+	     	<div class="container">
+		     	<div class="row">
+		     		<div class="col">
+						<div class="card text-white bg-success mb-3" style="max-width: 25rem;">
+						  <div class="card-header">Exercise routine</div>
+						  <div class="card-body">
+						  	<h5 class="card-title">Exercises</h5>
+						    <p class="card-text">You can provide rich detail about your exercises in your exercise routine through our interface. The more we know,
+						    the more personalised the recommendations. You can easily view all of your exercises.  </p>
+						  </div>
+						</div>	     			
+		     		</div>
+		     		<div class="col">
+						<div class="card text-white bg-success mb-3" style="max-width: 25rem;">
+						  <div class="card-header">Exercise routine</div>
+						  <div class="card-body">
+						  	<h5 class="card-title">Goals</h5>
+						    <p class="card-text">We provide you an easy way to for you to set and track your goals. Not too sure about what goals to choose?
+						    We're here to help with our own quiz that provides recommended goals.</p>
+						  </div>
+						</div>	         		
+		     		</div>
+		     		<div class="col">
+						<div class="card text-white bg-success mb-3" style="max-width: 25rem;">
+						  <div class="card-header">Exercise routine</div>
+						  <div class="card-body">
+						  	<h5 class="card-title">Disabilites</h5>
+						    <p class="card-text">Have any disabilities? We provide you with the option to specify these when setting up your account. This
+						    ensures this is taken into consideration when providing recommendations. </p>
+						  </div>
+						</div>		     		
+		     		</div>
+		     	</div>
+		     	
+		     	<div class="row">
+		     		<div class="col">
+						<div class="card text-white bg-success mb-3 text-center" style="max-width: 25rem;">
+						  <div class="card-header">Analytics</div>
+						  <div class="card-body">
+						  	<h5 class="card-title">Recommendations</h5>
+						    <p class="card-text"> The more we know, the more you benefit! Our algorithms will aggregate, review and analyse the information
+						    you give us, and provide high-quality recommendations from trusted new sources that we can gurantee will <span class="fw-bold"> level up </span> 
+						    your exercise routine.</p>
+						  </div>
+						</div>	     			
+		     		</div>
+		     		<div class="col">
+						<div class="card text-white bg-success mb-3 text-center" style="max-width: 25rem;">
+						  <div class="card-header">Analytics</div>
+						  <div class="card-body">
+						  	<h5 class="card-title">Reports</h5>
+						    <p class="card-text">With the collated data you've provided, we transform it into easy-to-read visualizations to enable you to draw your 
+						    own insights into your data!</p>
+						  </div>
+						</div>	         		
+		     		</div>
+		     		   <div class="col">
+						<div class="card text-white bg-success mb-3 text-center" style="max-width: 25rem;">
+						  <div class="card-header">Usability</div>
+						  <div class="card-body">
+						  	<h5 class="card-title">Website design</h5>
+						    <p class="card-text">We've endeavoured to make our website as simple and easy to use as possible, ensuring that your
+						    experience using our service is as seamless and enjoyable as possbile. </p>
+						  </div>
+						</div>		     		
+		     		</div>
+		     	</div>
+	     	</div>
+	     </section>
+			
+	</main>
+	
+
+	<footer class="footer mt-auto bg-dark text-light" th:fragment="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm text-center fw-light">
+			      <p> © 2022 HLSP <br> Learn more about us and what we deliver <a href="/homepage" class="fw-light"> here </a> </p>
+			    </div>
+			</div>
+		</div>
+	</footer>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+    
+  </body>
+</html>

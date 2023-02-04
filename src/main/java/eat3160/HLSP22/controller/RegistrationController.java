@@ -1,7 +1,6 @@
 package eat3160.HLSP22.controller;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import eat3160.HLSP22.model.UserBean;
 import eat3160.HLSP22.model.UserEntity;
-import eat3160.HLSP22.model.Users;
 import eat3160.HLSP22.service.UserService;
+
 
 /**
  * This controller handles requests related to the registration of a user. 
