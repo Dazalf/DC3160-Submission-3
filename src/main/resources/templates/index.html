@@ -31,7 +31,7 @@
 						<div th:if="${session.loggedIn != true}" class="row">
 							<div class="col">
 						  		<div class="pt-3">
-						  			<a class="btn btn-success btn-lg" href="/signupform"> Sign up now </a>  
+						  			<a class="btn btn-success btn-lg" th:href="@{/signupform}"> Sign up now </a>  
 						  		</div>
 					  		</div>
 					  	</div>
