@@ -25,11 +25,9 @@
 		   		
 
 		   		<div th:if="${errors != null}" class="alert alert-danger alert-dismissible" role="alert" data-bs-dismiss="alert">  
-		   			<span class="fw-bold">Errors</span>
+		   			<span class="fw-bold">Error</span>
 		   			<br>
-		   			<ul th:each="${error: ${errors}">
-			   			<li th:text="${error}"></li>
-		   			</ul>
+					<span th:text="${errors}"></span>
 		   			<button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
 		   		</div>
 	
