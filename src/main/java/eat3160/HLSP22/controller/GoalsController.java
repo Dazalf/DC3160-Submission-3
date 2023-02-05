@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import eat3160.HLSP22.model.GoalsEntity;
+import eat3160.HLSP22.model.GoalsQuizBean;
 import eat3160.HLSP22.service.GoalsService;
 
 
@@ -59,6 +60,7 @@ public class GoalsController {
 			return null;
 		}else {
 			model.addAttribute("goals",  goalsService.findByUserId((Integer)session.getAttribute("userID")));
+			model.addAttribute("quiz", new GoalsQuizBean());
 			return "editGoals";
 		}		
 	}
