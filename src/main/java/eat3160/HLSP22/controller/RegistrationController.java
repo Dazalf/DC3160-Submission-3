@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import eat3160.HLSP22.model.DisabilitiesBean;
 import eat3160.HLSP22.model.UserEntity;
 import eat3160.HLSP22.service.UserService;
 
@@ -35,10 +36,12 @@ public class RegistrationController {
 	}
 	
 	@RequestMapping("/signupform")
-	public String getLoginForm(HttpSession session, HttpServletResponse response) 
+	public String getLoginForm(HttpSession session, HttpServletResponse response, Model model) 
 			throws Exception {
 		
 		if(session.getAttribute("loggedIn") == null || (boolean)session.getAttribute("loggedIn") == false) {
+			DisabilitiesBean db = new DisabilitiesBean();
+			model.addAttribute("disabilitiesList", db.getDisabilitesList());
 			return "signupForm";
 		}else {
 			//If the user isn't logged in, send an 403 error and return null as the 'view'. This ensures the user cannot access
