@@ -52,10 +52,10 @@
 						  </thead>
 						  <tbody id="aerobicDisplay">
 						  		<tr th:each="exercise: ${aerobicExercises}">
-							  	  <td th:text="${exercise.exerciseName}"></td>
-							      <td th:text="${exercise.location}"></td>
-							      <td th:text="${exercise.steps}"></td>	
-							      <td th:text="${exercise.favourite}"></td>	
+							  	  <td th:text="${exercise.exerciseName}">Exercise</td>
+							      <td th:text="${exercise.location}">Home</td>
+							      <td th:text="${exercise.steps}">123</td>	
+							      <td th:text="${exercise.favourite}">True</td>	
 							      <td><a class="btn btn-secondary btn-sm" th:href="@{/exercises/edit/aerobic_exercise(id=${exercise.id})}" role="button">Edit</a></td>	
 						  		</tr>
 						  </tbody>
@@ -63,7 +63,7 @@
 					</div>
 				
 					<div class="pt-1"> 
-						<a class="btn btn-light" th:href="@{/exercises/form/aerobic_exercise}"> Add aerobic exercise </a>
+						<a class="btn btn-light" href="aerobicExerciseForm.html" th:href="@{/exercises/form/aerobic_exercise}"> Add aerobic exercise </a>
 					</div> 
 				</div>
 			
@@ -85,19 +85,19 @@
 						  </thead>
 						  <tbody id="strengthDisplay">
 							    <tr th:each="exercise: ${strengthExercises}">
-							      <td th:text="${exercise.exerciseName}"></td>
-							      <td th:text="${exercise.location}"></td>
-							      <td th:text="${exercise.muscleGroup}"/></td>
-							      <td th:text="${exercise.sets}"/></td>
-							      <td th:text="${exercise.reps}"/></td>
-							      <td th:text="${exercise.favourite}"/></td>
+							      <td th:text="${exercise.exerciseName}">Exercise</td>
+							      <td th:text="${exercise.location}">Gym</td>
+							      <td th:text="${exercise.muscleGroup}">Chest</td>
+							      <td th:text="${exercise.sets}">2</td>
+							      <td th:text="${exercise.reps}">10</td>
+							      <td th:text="${exercise.favourite}">True</td>
 								  <td><a class="btn btn-secondary btn-sm" th:href="@{/exercises/edit/strength_exercise(id=${exercise.id})}" role="button">Edit</a></td>	
 							    </tr>
 						  </tbody>
 						</table>
 					</div>
 					<div class="pt-1">
-						<a class="btn btn-light" th:href="@{/exercises/form/strength_exercise}"> Add strength training exercise </a> 
+						<a class="btn btn-light" href="strengthExerciseForm.html" th:href="@{/exercises/form/strength_exercise}"> Add strength training exercise </a> 
 					</div>
 				</div>
 			</div>
