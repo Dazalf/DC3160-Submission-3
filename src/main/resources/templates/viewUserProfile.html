@@ -18,10 +18,10 @@
 	<!--    This shows a message letting the user know their account has been created successfully. The session attribute is created -->
 	<!--    by the Account controller, who redirected the user here after a successful account creation. -->
 
-	    		<div th:if="${SuccessfulProfileUpdate eq true}" class="alert alert-success alert-dismissible" role="alert" data-bs-dismiss="alert"> 
-	    				<span>Profile update has been successful!</span> 
-<!--	    			<c:remove var="SuccessfulProfileUpdate" scope="session"/>-->
-	    			<button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+	    		<div th:if="${session.SuccessfulProfileUpdate eq true}" class="alert alert-success alert-dismissible" role="alert" data-bs-dismiss="alert"> 
+	    			<span>Profile update has been successful!</span> 
+	    			<div th:text="${#session.removeAttribute('SuccessfulProfileUpdate')}"></div>	
+    				<button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
 	    		</div>
 
 			 
