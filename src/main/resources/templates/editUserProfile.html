@@ -20,13 +20,13 @@
 			 <!-- 	The controller will add an 'error' attribute to the request in the instance any errors were encountered on the server-side that stopped the
 	    		creation of the new account. As it is an array, we'll loop through the errors and display them on the screen. -->
 		   		
-		   		<div th:if="${UserProfileErrors != null}" class="alert alert-danger alert-dismissible" role="alert" data-bs-dismiss="alert">  
+		   		<div th:if="${session.UserProfileErrors != null}" class="alert alert-danger alert-dismissible" role="alert" data-bs-dismiss="alert">  
 		   			<span class="fw-bold">Errors</span>
 		   			<br>
 		   			<ul>
-			   			<li th:text="${error}"></li>
+			   			<li th:text="${session.UserProfileErrors}"></li>
 		   			</ul>
-		   			<c:remove var="UserProfileErrors" scope="session"/>
+		   			<div th:text="${#session.removeAttribute('UserProfileErrors')}"></div>
 		   			<button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
 		   		</div>
 	
