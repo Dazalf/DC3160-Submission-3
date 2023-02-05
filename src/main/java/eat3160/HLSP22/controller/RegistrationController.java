@@ -42,6 +42,7 @@ public class RegistrationController {
 		if(session.getAttribute("loggedIn") == null || (boolean)session.getAttribute("loggedIn") == false) {
 			DisabilitiesBean db = new DisabilitiesBean();
 			model.addAttribute("disabilitiesList", db.getDisabilitesList());
+			model.addAttribute("user", new UserEntity());
 			return "signupForm";
 		}else {
 			//If the user isn't logged in, send an 403 error and return null as the 'view'. This ensures the user cannot access
