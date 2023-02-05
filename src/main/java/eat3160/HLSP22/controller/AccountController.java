@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import eat3160.HLSP22.model.DisabilitiesBean;
 import eat3160.HLSP22.model.UserBean;
 import eat3160.HLSP22.model.UserEntity;
 import eat3160.HLSP22.model.Users;
@@ -64,6 +65,8 @@ public class AccountController {
 			return null;
 		}else {
 			model.addAttribute("user", userService.findById((Integer)session.getAttribute("userID")).get());
+			DisabilitiesBean db = new DisabilitiesBean();
+			model.addAttribute("disabilitiesList", db.getDisabilitesList());
 			return "editUserProfile";
 		}		
 	}
