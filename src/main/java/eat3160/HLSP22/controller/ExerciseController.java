@@ -255,7 +255,7 @@ public class ExerciseController {
     		
     		//Check if null. If null, redirect to the exercises page. If not null, respond to client with a view of the exercise. 
     		if(seb != null) {
-    			model.addAttribute("strengthExerciseBean", seb);
+    			model.addAttribute("exercise", seb);
 	    		return "editStrengthExercise";
     		}else {
     			return "redirect:/exercises/view";

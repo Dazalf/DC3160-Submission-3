@@ -1,27 +1,38 @@
 <!DOCTYPE html>
 <html class="h-100" xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edit aerobic exercise</title>
+    <title>Edit strength exercise</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-</head>
-  
+  </head>
   <body class="d-flex flex-column h-100">
-  
-	<section th:include="navigation.html::navbar"></section>
     
-     <main role="main" class="flex-shrink-0 my-auto">
-	     <div class ="container py-3 border" >
-	     	
-			<form th:action="@{/exercises/update/aerobic_exercise}" method="POST">
-	    		
-	    		<h3> Edit aerobic exercise </h3>
-	    		
-	    		<div class="form-group py-3">
+   	<section th:include="navigation.html::navbar"></section>
+	
+	<main role="main" class="flex-shrink-0 my-auto">
+	    <div class ="container py-2 border">
+	    
+		    <h3> Edit strength exercise </h3>
+	    	
+	    	<form th:action="@{/exercises/update/strength_exercise}" method="POST">
+	    	
+				<div class="form-group">
 	    			<label for="ExerciseN">Exercise name</label>
 	   				<input type="text" class="form-control" name="exerciseName" id="exerciseName" th:value="${exercise.exerciseName}" required>
 		 		</div>
+		 			
+		 		<div class="row"> 
+			  		<div class="form-group pt-3 col">
+			    		<label for="sets">Amount of sets</label>
+			    		<input type="number" class="form-control" name="sets" id="sets" min="0" th:value="${exercise.sets}" required>
+			  		</div>
+			  		
+			  		<div class="form-group pt-3 col">
+			    		<label for="reps">Amount of reps</label>
+			    		<input type="number" class="form-control" name="reps" id="reps" min="0" th:value="${exercise.reps}" required >
+			  		</div>
+		  		</div>
 		 		
 		 		<div class="form-group">
 		    		<label>Where did you exercise?</label>
@@ -44,20 +55,61 @@
 						</label>	
 					</div>
 		  		</div>
-		 		 
+		  		
 		  		<div class="form-group pt-3">
-		    		<label for="stepC">Amount of steps</label>
-		    		<input type="number" class="form-control" name="steps" id="steps" min="0" th:value="${exercise.steps}">
+		    		<label>What muscle group was involved?</label>
+		    		
+		    		<div class="form-check">
+					  <input class="form-check-input" type="radio" value="Chest" name="muscleGroup" id="muscleGroupRadioChest" th:checked="${exercise.muscleGroup eq 'Chest'}">
+					  <label class="form-check-label" for="muscleGroupRadioChest">
+					    Chest
+					  </label>	    		
+					</div>
+					
+					<div class="form-check">
+					  <input class="form-check-input" type="radio" value="Back" name="muscleGroup" id="muscleGroupRadioBack" th:checked="${exercise.muscleGroup eq 'Back'}">
+					  <label class="form-check-label" for="muscleGroupRadioBack">
+					    Back
+					  </label>
+					</div>
+					
+					<div class="form-check">
+					  <input class="form-check-input" type="radio" value="Arms" name="muscleGroup" id="muscleGroupRadioArms" th:checked="${exercise.muscleGroup eq 'Arms'}">
+					  <label class="form-check-label" for="muscleGroupRadioArms">
+					    Arms
+					  </label>						  
+					</div>
+					
+					<div class="form-check">
+					  <input class="form-check-input" type="radio" value="Abdominals" name="muscleGroup" id="muscleGroupRadioAbdominals" th:checked="${exercise.muscleGroup eq 'Abdominals'}">
+					  <label class="form-check-label" for="checkboxAbdominals">
+					    Abdominals
+					  </label>	
+					</div>
+					
+					<div class="form-check">
+					  <input class="form-check-input" type="radio" value="Legs" name="muscleGroup" id="muscleGroupRadioLegs" th:checked="${exercise.muscleGroup eq 'Legs'}">
+					  <label class="form-check-label" for="muscleGroupRadioLegs">
+					    Legs
+					  </label>
+					</div>
+					
+					<div class="form-check">
+					  <input class="form-check-input" type="radio" value="Shoulders" name="muscleGroup" id="muscleGroupRadioShoulders" th:checked="${exercise.muscleGroup eq 'Shoulders'}">
+					  <label class="form-check-label" for="muscleGroupRadioShoulders">
+					    Shoulders
+					  </label>
+					</div>
 		  		</div>
 		  		
 		  		<div class="form-group pt-3">
 		    		<label for="date">Choose exercise date</label>
 		    		<input type="date" class="form-control" name="dateOfExercise" id="date" th:value="${exercise.dateOfExercise}" onfocus="this.max=new Date().toISOString().split('T')[0]" required>
 		  		</div>
-		  		
-	  			<div class="form-check form-switch py-3">			
+	  			
+	  			<div class="form-check form-switch pt-3">
 				  <input class="form-check-input" type="checkbox" name="favourite" id="favouriteSwitch" th:checked="${exercise.favourite == true}">
-				  <label class="form-check-label" for="favouriteSwitch">Favourite?</label> 
+				  <label class="form-check-label" for="favouriteSwitch">Favourite?</label>  						
 				</div>
 				
 				<input type="hidden" id="exerciseID" name="exerciseID" th:value="${exercise.id}">
@@ -68,13 +120,13 @@
 		  		
 		  		<div class="pt-3">
 	 	  			<a class="btn btn-primary" href="viewExercises.html" th:href="@{/exercises/view}" role="button">Discard changes</a>
-		     	</div>
-	    	</form>	 
+		     	</div>	
+	
+	    	</form>
 	    	
+	    	<form id="deleteUserForm" th:action="@{/exercises/delete/strength_exercise}" method="POST">
 	    	
-	   	    <form id="deleteUserForm" th:action="@{/exercises/delete/aerobic_exercise}" method="POST">
-	     	
-		     	<input type="hidden" id="exerciseID" name="exerciseID" th:value="${exercise.id}">
+	    	    <input type="hidden" id="exerciseID" name="exerciseID" th:value="${exercise.id}">
 		     	
 		     	<!-- Button to trigger the delete strength exercise modal -->
 				<div class="pt-3">
@@ -101,11 +153,12 @@
 				    </div>
 				  </div>
 				</div>
-		     </form>		 
-		</div>
-	</main>
+		     </form>  
+		     
+	    </div>
+    </main>
     
-	<section class ="mt-auto" th:include="footer.html::footer"></section>
+    <section class ="mt-auto" th:include="footer.html::footer"></section>
     
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
