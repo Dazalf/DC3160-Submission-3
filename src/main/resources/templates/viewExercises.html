@@ -20,18 +20,16 @@
 	    	
 	    	<!-- This shows a message letting the user know their exercise has been updated or deleted successfully. The request attribute is created 
 		    by the Exercise controller, which redirects the user here. -->
-	    	<c:if test = "${!empty sessionScope.SuccessfulExerciseUpdate || !empty sessionScope.SuccessfulExerciseDeletion || !empty sessionScope.SuccessfulExerciseCreation}">
-	    		<div class="alert alert-success alert-dismissible" role="alert"> 
-	    			<span><c:out value="${sessionScope.SuccessfulExerciseUpdate}"/></span>
-	    			<span><c:out value="${sessionScope.SuccessfulExerciseDeletion}"/></span>
-	    			<span><c:out value="${sessionScope.SuccessfulExerciseCreation}"/></span>
-	    			<!-- Remove from session scope so this alert won't always show.  -->
-	    			<c:remove var="SuccessfulExerciseUpdate" scope="session"/>
-	    			<c:remove var="SuccessfulExerciseDeletion" scope="session"/>
-	    			<c:remove var="SuccessfulExerciseCreation" scope="session"/>
-	    			<button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
-	    		</div>
-	    	</c:if>
+    		<div th:test="${session.SuccessfulExerciseUpdate != null || session.SuccessfulExerciseDeletion != null || session.SuccessfulExerciseCreation != null}" class="alert alert-success alert-dismissible" role="alert"> 
+    			<span th:text="${session.SuccessfulExerciseUpdate}"/></span>
+    			<span th:text="${session.SuccessfulExerciseDeletion}"/></span>
+    			<span th:text="${session.SuccessfulExerciseCreation}"/></span>
+    			<!-- Remove from session scope so this alert won't always show.  -->
+    			<div th:text="${#session.removeAttribute('SuccessfulExerciseUpdate')}"></div>	
+    			<div th:text="${#session.removeAttribute('SuccessfulExerciseDeletion')}"></div>	
+    			<div th:text="${#session.removeAttribute('SuccessfulExerciseCreation')}"></div>	
+    			<button class="btn-close" aria-label="close" data-bs-dismiss="alert"></button>
+    		</div>
 	     	
 	     	<label for="datepicker">Filter by date:</label>
 			<input type="date" id="datepicker" name="datepicker" th:value="${todaysDate}" onchange="updateTables(this.value);"> 
