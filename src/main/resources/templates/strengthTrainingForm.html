@@ -112,54 +112,59 @@
 		  		</div>
 	    	</form>
 	    	
-	    	<div class="table-responsive-sm pt-3">
+
+	     	<div class="table-responsive-sm pt-3"> 
 				<table class="table table-hover table-striped caption-top">
-				<caption>Recently added exercises</caption>
-				  <thead class="table-light"> 
-				    <tr>
-				      <th scope="col">Exercise name</th>
-				      <th scope="col">Location</th>
-				      <th scope="col">Muscle group</th>
-				      <th scope="col">Sets</th>
-				      <th scope="col">Reps</th>
-				      <th scope="col">Date of exercise</th>
-				    </tr>
+				 <caption>Recently added exercises</caption>	
+				 <thead class="table-light">
+			      <tr>
+				     <th scope="col">Exercise name</th>
+				     <th scope="col">Location</th>
+					 <th scope="col">Muscle group</th>
+					 <th scope="col">Sets</th>
+					 <th scope="col">Reps</th>
+					 <th scope="col">Favourited</th>
+					 <th scope="col"></th>
+				  </tr>
 				  </thead>
-				  <tbody>
-				    <tr>
-				      <td>Example exercise 1</td>
-				      <td>Example location 1</td>
-				      <td>Example muscle group 1</td>
-				      <td>Example sets 1</td>
-				      <td>Example reps 1</td>
-				      <td>Example date 1</td>
-				    </tr>
+				  <tbody id="strengthDisplay">
+					    <tr th:each="exercise: ${recentExercises}">
+					      <td th:text="${exercise.exerciseName}">Exercise</td>
+					      <td th:text="${exercise.location}">Gym</td>
+					      <td th:text="${exercise.muscleGroup}">Chest</td>
+					      <td th:text="${exercise.sets}">2</td>
+					      <td th:text="${exercise.reps}">10</td>
+					      <td th:text="${exercise.favourite}">True</td>
+						  <td><a class="btn btn-secondary btn-sm" th:href="@{/exercises/edit/strength_exercise(id=${exercise.id})}" role="button">Use</a></td>	
+					    </tr>
 				  </tbody>
 				</table>
 			</div>
 			
-			<div class="table-responsive-sm pt-3">
+	     	<div class="table-responsive-sm pt-3"> 
 				<table class="table table-hover table-striped caption-top">
-				<caption>Favourite exercises</caption>
-				  <thead class="table-light">
-				   <tr>
-				      <th scope="col">Exercise name</th>
-				      <th scope="col">Location</th>
-				      <th scope="col">Muscle group</th>
-				      <th scope="col">Sets</th>
-				      <th scope="col">Reps</th>
-				      <th scope="col">Date of exercise</th>
-				   </tr>
+				 <caption>Favourited exercises</caption>	
+				 <thead class="table-light">
+			      <tr>
+				     <th scope="col">Exercise name</th>
+				     <th scope="col">Location</th>
+					 <th scope="col">Muscle group</th>
+					 <th scope="col">Sets</th>
+					 <th scope="col">Reps</th>
+					 <th scope="col">Favourited</th>
+					 <th scope="col"></th>
+				  </tr>
 				  </thead>
-				  <tbody>
-				    <tr>
-				      <td>Example exercise 1</td>
-				      <td>Example location 1</td>
-				      <td>Example muscle group 1</td>
-				      <td>Example sets 1</td>
-				      <td>Example reps 1</td>
-				      <td>Example date 1</td>
-				    </tr>
+				  <tbody id="strengthDisplay">
+					    <tr th:each="exercise: ${favouriteExercises}">
+					      <td th:text="${exercise.exerciseName}">Exercise</td>
+					      <td th:text="${exercise.location}">Gym</td>
+					      <td th:text="${exercise.muscleGroup}">Chest</td>
+					      <td th:text="${exercise.sets}">2</td>
+					      <td th:text="${exercise.reps}">10</td>
+					      <td th:text="${exercise.favourite}">True</td>
+						  <td><a class="btn btn-secondary btn-sm" th:href="@{/exercises/edit/strength_exercise(id=${exercise.id})}" role="button">Use</a></td>	
+					    </tr>
 				  </tbody>
 				</table>
 			</div>

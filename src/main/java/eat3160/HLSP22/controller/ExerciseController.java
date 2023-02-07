@@ -79,7 +79,7 @@ public class ExerciseController {
 	
 	@RequestMapping("/form/aerobic_exercise")
 	public String viewAerobicExerciseForm(HttpSession session, HttpServletResponse response, HttpServletRequest request,
-			@ModelAttribute("todaysDate") LocalDate todaysDate) 
+			@ModelAttribute("todaysDate") LocalDate todaysDate, Model model) 
 			throws Exception {
 		
 		if(session.getAttribute("loggedIn") == null || (boolean)session.getAttribute("loggedIn") == false) {
@@ -88,13 +88,16 @@ public class ExerciseController {
 			response.sendError(403);
 			return null;
 		}else {
+			int userid = (Integer)session.getAttribute("userID");
+			model.addAttribute("favouriteExercises", aerobicExerciseService.findFavouritesByUserId(userid));
+			model.addAttribute("recentExercises", aerobicExerciseService.findRecentExercisesByUserId(userid));
 			return "aerobicExerciseForm";
 		}	
 	}
 	
 	@RequestMapping("/form/strength_exercise")
 	public String viewStrengthExerciseForm(HttpSession session, HttpServletResponse response, HttpServletRequest request,
-			@ModelAttribute("todaysDate") LocalDate todaysDate) 
+			@ModelAttribute("todaysDate") LocalDate todaysDate, Model model) 
 			throws Exception {
 		
 		if(session.getAttribute("loggedIn") == null || (boolean)session.getAttribute("loggedIn") == false) {
@@ -103,6 +106,9 @@ public class ExerciseController {
 			response.sendError(403);
 			return null;
 		}else {
+			int userid = (Integer)session.getAttribute("userID");
+			model.addAttribute("favouriteExercises", strengthExerciseService.findFavouritesByUserId(userid));
+			model.addAttribute("recentExercises", strengthExerciseService.findRecentExercisesByUserId(userid));
 			return "strengthTrainingForm";
 		}	
 	}

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import eat3160.HLSP22.model.AerobicExerciseEntity;
+import eat3160.HLSP22.model.StrengthExerciseEntity;
 import eat3160.HLSP22.repository.AerobicExerciseRepository;
 
 @Service
@@ -61,5 +62,23 @@ public class AerobicExerciseService {
 	 */
 	public void delete(int id) {
 		AerobicExerciseRepository.deleteById(id);
+	}
+	
+	public ArrayList<AerobicExerciseEntity> findFavouritesByUserId(int userID){
+		
+		Iterable<AerobicExerciseEntity> results = AerobicExerciseRepository.findFavouritesByUserId(userID);
+		ArrayList<AerobicExerciseEntity> se = new ArrayList<>();
+		results.forEach(result -> se.add(result));
+		
+		return se;
+	}
+	
+	public ArrayList<AerobicExerciseEntity> findRecentExercisesByUserId(int userID){
+		
+		Iterable<AerobicExerciseEntity> results = AerobicExerciseRepository.findRecentExercisesByUserId(userID);
+		ArrayList<AerobicExerciseEntity> se = new ArrayList<>();
+		results.forEach(result -> se.add(result));
+		
+		return se;
 	}
 }

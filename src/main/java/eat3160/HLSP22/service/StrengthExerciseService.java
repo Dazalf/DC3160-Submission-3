@@ -62,4 +62,22 @@ public class StrengthExerciseService {
 	public void delete(int id) {
 		strengthExerciseRepository.deleteById(id);
 	}
+	
+	public ArrayList<StrengthExerciseEntity> findFavouritesByUserId(int userID){
+		
+		Iterable<StrengthExerciseEntity> results = strengthExerciseRepository.findFavouritesByUserId(userID);
+		ArrayList<StrengthExerciseEntity> se = new ArrayList<>();
+		results.forEach(result -> se.add(result));
+		
+		return se;
+	}
+	
+	public ArrayList<StrengthExerciseEntity> findRecentExercisesByUserId(int userID){
+		
+		Iterable<StrengthExerciseEntity> results = strengthExerciseRepository.findRecentExercisesByUserId(userID);
+		ArrayList<StrengthExerciseEntity> se = new ArrayList<>();
+		results.forEach(result -> se.add(result));
+		
+		return se;
+	}
 }

@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import eat3160.HLSP22.model.AerobicExerciseEntity;
+import eat3160.HLSP22.model.StrengthExerciseEntity;
 
 public interface AerobicExerciseRepository extends CrudRepository<AerobicExerciseEntity, Integer>{
 	
@@ -12,5 +13,11 @@ public interface AerobicExerciseRepository extends CrudRepository<AerobicExercis
 	
 	@Query("SELECT a FROM AerobicExerciseEntity a WHERE a.id LIKE ?1 AND a.userID LIKE ?2")
 	AerobicExerciseEntity findByUserIdAndId(int id, int userID);
+	
+	@Query("SELECT a FROM AerobicExerciseEntity a WHERE a.userID LIKE ?1 AND a.favourite = true ORDER BY a.id DESC")
+	Iterable<AerobicExerciseEntity> findFavouritesByUserId(int userID);
+	
+	@Query("SELECT a FROM AerobicExerciseEntity a WHERE a.userID LIKE ?1 ORDER BY a.dateOfExercise DESC")
+	Iterable<AerobicExerciseEntity> findRecentExercisesByUserId(int userID);
 	
 }

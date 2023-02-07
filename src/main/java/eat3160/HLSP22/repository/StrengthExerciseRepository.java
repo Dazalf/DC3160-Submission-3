@@ -12,5 +12,13 @@ public interface StrengthExerciseRepository extends CrudRepository<StrengthExerc
 	
 	@Query("SELECT s FROM StrengthExerciseEntity s WHERE s.id LIKE ?1 AND s.userID LIKE ?2")
 	StrengthExerciseEntity findByUserIdAndId(int id, int userID);
+
+	@Query("SELECT s FROM StrengthExerciseEntity s WHERE s.userID LIKE ?1 AND s.favourite = true ORDER BY s.id DESC")
+	Iterable<StrengthExerciseEntity> findFavouritesByUserId(int userID);
+	
+	@Query("SELECT s FROM StrengthExerciseEntity s WHERE s.userID LIKE ?1 ORDER BY s.dateOfExercise DESC")
+	Iterable<StrengthExerciseEntity> findRecentExercisesByUserId(int userID);
 	
 }
+
+
