@@ -91,6 +91,30 @@ public class ExerciseController {
 			int userid = (Integer)session.getAttribute("userID");
 			model.addAttribute("favouriteExercises", aerobicExerciseService.findFavouritesByUserId(userid));
 			model.addAttribute("recentExercises", aerobicExerciseService.findRecentExercisesByUserId(userid));
+			
+			model.addAttribute("exercise", new AerobicExerciseEntity());
+			
+			return "aerobicExerciseForm";
+		}	
+	}
+	
+	@RequestMapping("/form/aerobic_exercise/load_exercise")
+	public String viewAerobicExerciseFormWithLoadedExercise(HttpSession session, HttpServletResponse response, HttpServletRequest request,
+			@ModelAttribute("todaysDate") LocalDate todaysDate, Model model, @RequestParam int id) 
+			throws Exception {
+		
+		if(session.getAttribute("loggedIn") == null || (boolean)session.getAttribute("loggedIn") == false) {
+			//If the user isn't logged in, send an 403 error and return null as the 'view'. This ensures the user cannot access
+			//the view if they are already logged in. 
+			response.sendError(403);
+			return null;
+		}else {
+			int userid = (Integer)session.getAttribute("userID");
+			model.addAttribute("favouriteExercises", aerobicExerciseService.findFavouritesByUserId(userid));
+			model.addAttribute("recentExercises", aerobicExerciseService.findRecentExercisesByUserId(userid));
+			
+			model.addAttribute("exercise", aerobicExerciseService.findByUserIdAndId(id, userid));
+			
 			return "aerobicExerciseForm";
 		}	
 	}
