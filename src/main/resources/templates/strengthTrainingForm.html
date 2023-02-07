@@ -16,29 +16,29 @@
     
 		    <h3> Add strength training exercise </h3>
 	    	
-	    	<form th:action="@{/exercises/add/strength_exercise}" method="POST">
+	    	<form action="viewExercises.html" th:action="@{/exercises/add/strength_exercise}" method="POST">
 	    	
 				<div class="form-group">
 	    			<label for="ExerciseN">Exercise name</label>
-	   				<input type="text" class="form-control" name="exerciseName" id="exerciseName" th:value="${exercise.exerciseName}" required>
+	   				<input type="text" class="form-control" name="exerciseName" id="exerciseName" value="Dumbell curls" th:value="${exercise.exerciseName}" required>
 		 		</div>
 		 			
 		 		<div class="row"> 
 			  		<div class="form-group pt-3 col">
 			    		<label for="sets">Amount of sets</label>
-			    		<input type="number" class="form-control" name="sets" id="sets" min="0" th:value="${exercise.sets}" required>
+			    		<input type="number" class="form-control" name="sets" id="sets" min="0" value="3" th:value="${exercise.sets}" required>
 			  		</div>
 			  		
 			  		<div class="form-group pt-3 col">
 			    		<label for="reps">Amount of reps</label>
-			    		<input type="number" class="form-control" name="reps" id="reps" min="0" th:value="${exercise.reps}" required >
+			    		<input type="number" class="form-control" name="reps" id="reps" min="0" value="10" th:value="${exercise.reps}" required >
 			  		</div>
 		  		</div>
 		 		
 		 		<div class="form-group pt-3">
 		    		<label>Where did you exercise?</label>
 		    		<div class="form-check">
-  						<input class="form-check-input" type="radio" value="Home" name="location" id="locationRadioHome" th:checked="${exercise.location eq 'Home'}" required/>
+  						<input class="form-check-input" type="radio" value="Home" name="location" id="locationRadioHome" th:checked="${exercise.location eq 'Home'}" checked required/>
 						<label class="form-check-label" for="locationRadioHome">
 						   Home
 			 			</label>
@@ -75,7 +75,7 @@
 					</div>
 					
 					<div class="form-check">
-					  <input class="form-check-input" type="radio" value="Arms" name="muscleGroup" id="muscleGroupRadioArms" th:checked="${exercise.muscleGroup eq 'Arms'}">
+					  <input class="form-check-input" type="radio" value="Arms" name="muscleGroup" id="muscleGroupRadioArms" th:checked="${exercise.muscleGroup eq 'Arms'}" checked>
 					  <label class="form-check-label" for="muscleGroupRadioArms">
 					    Arms
 					  </label>						  
@@ -109,7 +109,7 @@
 		  		</div>
 	  			
 	  			<div class="form-check form-switch pt-3">
-				  <input class="form-check-input" type="checkbox" name="favourite" id="favouriteSwitch" th:checked="${exercise.favourite == true}">
+				  <input class="form-check-input" type="checkbox" name="favourite" id="favouriteSwitch" th:checked="${exercise.favourite == true}" checked>
 				  <label class="form-check-label" for="favouriteSwitch">Favourite?</label>
 				 </div>
 		  		
@@ -141,7 +141,7 @@
 					      <td th:text="${exercise.sets}">2</td>
 					      <td th:text="${exercise.reps}">10</td>
 					      <td th:text="${exercise.favourite}">True</td>
-						  <td><a class="btn btn-secondary btn-sm" th:href="@{/exercises/form/strength_exercise/load_exercise(id=${exercise.id})}" role="button">Use</a></td>	
+						  <td><a class="btn btn-secondary btn-sm" href="strengthTrainingForm.html" th:href="@{/exercises/form/strength_exercise/load_exercise(id=${exercise.id})}" role="button">Use</a></td>	
 					    </tr>
 				  </tbody>
 				</table>
@@ -169,7 +169,7 @@
 					      <td th:text="${exercise.sets}">2</td>
 					      <td th:text="${exercise.reps}">10</td>
 					      <td th:text="${exercise.favourite}">True</td>
-						  <td><a class="btn btn-secondary btn-sm" th:href="@{/exercises/form/strength_exercise/load_exercise(id=${exercise.id})}" role="button">Use</a></td>	
+						  <td><a class="btn btn-secondary btn-sm" href="strengthTrainingForm.html" th:href="@{/exercises/form/strength_exercise/load_exercise(id=${exercise.id})}" role="button">Use</a></td>	
 					    </tr>
 				  </tbody>
 				</table>
