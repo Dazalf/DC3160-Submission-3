@@ -18,94 +18,100 @@
 	    	
 	    	<form th:action="@{/exercises/add/strength_exercise}" method="POST">
 	    	
-	    		<div class="form-group">
-	    			<label for="exerciseName">Exercise name</label>
-	   				<input type="text" class="form-control" name="exerciseName" id="exerciseName" placeholder="Input exercise name" required>
+				<div class="form-group">
+	    			<label for="ExerciseN">Exercise name</label>
+	   				<input type="text" class="form-control" name="exerciseName" id="exerciseName" th:value="${exercise.exerciseName}" required>
 		 		</div>
-		 		
-		 		<div class="row py-3">
-			  		<div class="form-group col">
+		 			
+		 		<div class="row"> 
+			  		<div class="form-group pt-3 col">
 			    		<label for="sets">Amount of sets</label>
-			    		<input type="number" class="form-control" name="sets" id="sets" min="0" required>
+			    		<input type="number" class="form-control" name="sets" id="sets" min="0" th:value="${exercise.sets}" required>
 			  		</div>
 			  		
-			  		<div class="form-group col">
+			  		<div class="form-group pt-3 col">
 			    		<label for="reps">Amount of reps</label>
-			    		<input type="number" class="form-control" name="reps" id="reps" min="0" required>
+			    		<input type="number" class="form-control" name="reps" id="reps" min="0" th:value="${exercise.reps}" required >
 			  		</div>
 		  		</div>
 		 		
-		 		<div class="form-group pt-3">
+		 		<div class="form-group">
 		    		<label>Where did you exercise?</label>
 		    		<div class="form-check">
-					  <input class="form-check-input" type="radio" value="Home" name="location" id="locationRadioHome" checked="checked">
-					  <label class="form-check-label" for="locationRadioHome">
-					    Home
-					  </label>
-					</div>
+  						<input class="form-check-input" type="radio" value="Home" name="location" id="locationRadioHome" th:checked="${exercise.location eq 'Home'}" required/>
+						<label class="form-check-label" for="locationRadioHome">
+						   Home
+			 			</label>
+			 		</div>	
+			 		<div class="form-check">	
+						<input class="form-check-input" type="radio" value="Gym" name="location" id="locationRadioGym" th:checked="${exercise.location eq 'Gym'}"/>
+						<label class="form-check-label" for="locationRadioGym">
+							Gym
+						</label>			 			
+			 		</div>
 					<div class="form-check">
-					  <input class="form-check-input" type="radio" value="Gym" name="location" id="locationRadioGym">
-					  <label class="form-check-label" for="locationRadioGym">
-					    Gym
-					  </label>
-					</div>
-						<div class="form-check">
-					  <input class="form-check-input" type="radio" value="Park" name="location" id="locationRadioPark">
-					  <label class="form-check-label" for="locationRadioPark">
-					    Park
-					  </label>
+						<input class="form-check-input" type="radio" value="Park" name="location" id="locationRadioPark" th:checked="${exercise.location eq 'Park'}"/>
+						<label class="form-check-label" for="checkboxPark">
+						   Park
+						</label>	
 					</div>
 		  		</div>
 		  		
 		  		<div class="form-group pt-3">
 		    		<label>What muscle group was involved?</label>
+		    		
 		    		<div class="form-check">
-					  <input class="form-check-input" type="radio" value="Chest" name="muscleGroup" id="muscleGroupRadioChest" checked="checked">
+					  <input class="form-check-input" type="radio" value="Chest" name="muscleGroup" id="muscleGroupRadioChest" th:checked="${exercise.muscleGroup eq 'Chest'}" required/>
 					  <label class="form-check-label" for="muscleGroupRadioChest">
 					    Chest
-					  </label>
+					  </label>	    		
 					</div>
+					
 					<div class="form-check">
-					  <input class="form-check-input" type="radio" value="Back" name="muscleGroup" id="muscleGroupRadioBack">
+					  <input class="form-check-input" type="radio" value="Back" name="muscleGroup" id="muscleGroupRadioBack" th:checked="${exercise.muscleGroup eq 'Back'}">
 					  <label class="form-check-label" for="muscleGroupRadioBack">
 					    Back
 					  </label>
 					</div>
-						<div class="form-check">
-					  <input class="form-check-input" type="radio" value="Arms" name="muscleGroup" id="muscleGroupRadioArms">
+					
+					<div class="form-check">
+					  <input class="form-check-input" type="radio" value="Arms" name="muscleGroup" id="muscleGroupRadioArms" th:checked="${exercise.muscleGroup eq 'Arms'}">
 					  <label class="form-check-label" for="muscleGroupRadioArms">
 					    Arms
-					  </label>
+					  </label>						  
 					</div>
+					
 					<div class="form-check">
-					  <input class="form-check-input" type="radio" value="Abdominals" name="muscleGroup" id="muscleGroupRadioAbdominals">
+					  <input class="form-check-input" type="radio" value="Abdominals" name="muscleGroup" id="muscleGroupRadioAbdominals" th:checked="${exercise.muscleGroup eq 'Abdominals'}">
 					  <label class="form-check-label" for="checkboxAbdominals">
 					    Abdominals
-					  </label>
+					  </label>	
 					</div>
+					
 					<div class="form-check">
-					  <input class="form-check-input" type="radio" value="Legs" name="muscleGroup" id="muscleGroupRadioLegs">
+					  <input class="form-check-input" type="radio" value="Legs" name="muscleGroup" id="muscleGroupRadioLegs" th:checked="${exercise.muscleGroup eq 'Legs'}">
 					  <label class="form-check-label" for="muscleGroupRadioLegs">
 					    Legs
 					  </label>
 					</div>
-						<div class="form-check">
-					  <input class="form-check-input" type="radio" value="Shoulders" name="muscleGroup" id="muscleGroupRadioShoulders">
+					
+					<div class="form-check">
+					  <input class="form-check-input" type="radio" value="Shoulders" name="muscleGroup" id="muscleGroupRadioShoulders" th:checked="${exercise.muscleGroup eq 'Shoulders'}">
 					  <label class="form-check-label" for="muscleGroupRadioShoulders">
 					    Shoulders
 					  </label>
 					</div>
 		  		</div>
-			  		  		
+		  		
 		  		<div class="form-group pt-3">
 		    		<label for="date">Choose exercise date</label>
-		    		<input type="date" class="form-control" name="dateOfExercise" id="date" th:value="${todaysDate}" onfocus="this.max=new Date().toISOString().split('T')[0]" required>
+		    		<input type="date" class="form-control" name="dateOfExercise" id="date" th:value="${exercise.dateOfExercise}" onfocus="this.max=new Date().toISOString().split('T')[0]" required>
 		  		</div>
 	  			
 	  			<div class="form-check form-switch pt-3">
-				  <input class="form-check-input" type="checkbox" name="favourite" id="flexSwitchCheckDefault">
-				  <label class="form-check-label" for="flexSwitchCheckDefault">Favourite?</label>
-				</div>
+				  <input class="form-check-input" type="checkbox" name="favourite" id="favouriteSwitch" th:checked="${exercise.favourite == true}">
+				  <label class="form-check-label" for="favouriteSwitch">Favourite?</label>
+				 </div>
 		  		
 		  		<div class="pt-3">
 		  			<button type="submit" value="Submit" class="btn btn-primary">Submit</button>
@@ -135,7 +141,7 @@
 					      <td th:text="${exercise.sets}">2</td>
 					      <td th:text="${exercise.reps}">10</td>
 					      <td th:text="${exercise.favourite}">True</td>
-						  <td><a class="btn btn-secondary btn-sm" th:href="@{/exercises/edit/strength_exercise(id=${exercise.id})}" role="button">Use</a></td>	
+						  <td><a class="btn btn-secondary btn-sm" th:href="@{/exercises/form/strength_exercise/load_exercise(id=${exercise.id})}" role="button">Use</a></td>	
 					    </tr>
 				  </tbody>
 				</table>
@@ -163,7 +169,7 @@
 					      <td th:text="${exercise.sets}">2</td>
 					      <td th:text="${exercise.reps}">10</td>
 					      <td th:text="${exercise.favourite}">True</td>
-						  <td><a class="btn btn-secondary btn-sm" th:href="@{/exercises/edit/strength_exercise(id=${exercise.id})}" role="button">Use</a></td>	
+						  <td><a class="btn btn-secondary btn-sm" th:href="@{/exercises/form/strength_exercise/load_exercise(id=${exercise.id})}" role="button">Use</a></td>	
 					    </tr>
 				  </tbody>
 				</table>

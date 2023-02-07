@@ -109,6 +109,30 @@ public class ExerciseController {
 			int userid = (Integer)session.getAttribute("userID");
 			model.addAttribute("favouriteExercises", strengthExerciseService.findFavouritesByUserId(userid));
 			model.addAttribute("recentExercises", strengthExerciseService.findRecentExercisesByUserId(userid));
+			
+			model.addAttribute("exercise", new StrengthExerciseEntity());
+			
+			return "strengthTrainingForm";
+		}	
+	}
+	
+	@RequestMapping("/form/strength_exercise/load_exercise")
+	public String viewStrengthExerciseFormWithLoadedExercise(HttpSession session, HttpServletResponse response, HttpServletRequest request,
+			@ModelAttribute("todaysDate") LocalDate todaysDate, Model model, @RequestParam int id) 
+			throws Exception {
+		
+		if(session.getAttribute("loggedIn") == null || (boolean)session.getAttribute("loggedIn") == false) {
+			//If the user isn't logged in, send an 403 error and return null as the 'view'. This ensures the user cannot access
+			//the view if they are already logged in. 
+			response.sendError(403);
+			return null;
+		}else {
+			int userid = (Integer)session.getAttribute("userID");
+			model.addAttribute("favouriteExercises", strengthExerciseService.findFavouritesByUserId(userid));
+			model.addAttribute("recentExercises", strengthExerciseService.findRecentExercisesByUserId(userid));
+			
+			model.addAttribute("exercise", strengthExerciseService.findByUserIdAndId(id, userid));
+			
 			return "strengthTrainingForm";
 		}	
 	}

@@ -17,7 +17,7 @@ public interface AerobicExerciseRepository extends CrudRepository<AerobicExercis
 	@Query("SELECT a FROM AerobicExerciseEntity a WHERE a.userID LIKE ?1 AND a.favourite = true ORDER BY a.id DESC")
 	Iterable<AerobicExerciseEntity> findFavouritesByUserId(int userID);
 	
-	@Query("SELECT a FROM AerobicExerciseEntity a WHERE a.userID LIKE ?1 ORDER BY a.dateOfExercise DESC")
+	@Query(value="SELECT * FROM aerobic_exercises WHERE userid LIKE ?1 ORDER BY date_of_exercise DESC LIMIT 5", nativeQuery=true)
 	Iterable<AerobicExerciseEntity> findRecentExercisesByUserId(int userID);
 	
 }
