@@ -59,8 +59,19 @@ public class GoalsController {
 			response.sendError(403);
 			return null;
 		}else {
-			model.addAttribute("goals",  goalsService.findByUserId((Integer)session.getAttribute("userID")));
+			
+			GoalsEntity e = goalsService.findByUserId((Integer)session.getAttribute("userID"));
+			
+			if(e == null) {
+				e = new GoalsEntity();
+				e.setWeeklyAerobicExercise(0);
+				e.setWeeklyStrengthExercise(0);
+			}
+			
+			model.addAttribute("goals", e);
+			
 			model.addAttribute("quiz", new GoalsQuizBean());
+			
 			return "editGoals";
 		}		
 	}
