@@ -18,7 +18,7 @@ import eat3160.HLSP22.service.GoalsService;
 
 /**
  * This controller handles requests related to the goals of a user. 
- * @author alf-s
+ * @author alf-s//
  */
 
 @RequestMapping("/goals*")
