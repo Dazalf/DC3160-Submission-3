@@ -3,8 +3,12 @@ package eat3160.HLSP22.controller;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import eat3160.HLSP22.service.RecommendationService;
 
 /**
  * This is simply the controller for handling requests related to analytics resources, i.e., recommendations and reports. 
@@ -15,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class AnalyticsController {
 	
+	@Autowired
+	private RecommendationService recommendationService;
+	
 	@RequestMapping("/recommendations")
-	public String viewRecommendations(HttpSession session, HttpServletResponse response)
+	public String viewRecommendations(HttpSession session, HttpServletResponse response, Model model)
 			throws Exception {
 		
 		if(session.getAttribute("loggedIn") == null || (boolean)session.getAttribute("loggedIn") == false) {
@@ -25,6 +32,7 @@ public class AnalyticsController {
 			response.sendError(403);
 			return null;
 		}else {		
+			model.addAttribute("recommendations", recommendationService.findAll());
 			return "recommendations";
 		}	
 	}

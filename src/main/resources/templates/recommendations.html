@@ -30,29 +30,19 @@
 				<table class="table table-hover table-striped caption-top">
 				  <thead class="table-light">
 				    <tr>
-				      <th scope="col">ID</th>
-				      <th scope="col">Title</th>
+				      <th scope="col">Article name</th>
+				      <th scope="col">Publisher</th>
+				      <th scope="col">Type</th>
 				      <th scope="col">Link</th>
 				    </tr>
 				  </thead>
-				  <tbody>
-				    <tr>
-				      <th scope="row">1</th>
-				      <td>Article title 1</td>
-				      <td>Link 1</td>
-		
-				    </tr>
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>Article title 2</td>
-				      <td>Link 2</td>
-	
-				    </tr>
-				    <tr>
-				      <th scope="row">3</th>
-				      <td>Article title 3</td>
-				      <td>Link 3</td>
-				    </tr>
+				  <tbody id="recommendationsDisplay">
+				  		<tr th:each="recommendation: ${recommendations}">
+					      <td th:text="${recommendation.name}">Home</td>
+					      <td th:text="${recommendation.publisher}">123</td>	
+					      <td th:text="${recommendation.type}">True</td>	
+					      <td><a class="btn btn-secondary btn-sm" th:href="${recommendation.link}" role="button">Link</a></td>	
+				  		</tr>
 				  </tbody>
 				</table>
 			</div>
