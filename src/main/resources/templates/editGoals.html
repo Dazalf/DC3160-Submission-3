@@ -91,10 +91,10 @@
 				  			<p class="fw-bold pt-3"> Recommended goals:</p>
 				  			<div th:each="entry: ${quiz.response}">
 				  				<div th:if="${entry.key eq 'Aerobic goal'}">
-				  				 	Strength exercises per week: <span th:text="${entry.value}"></span>
+				  				 	Aerobic exercises per week: <span th:text="${entry.value}"></span>
 				  				 </div>
 				  				<div th:if="${entry.key eq 'Strength goal'}">
-				  				 	Aerobic exercise per week: <span th:text="${entry.value}"></span>
+				  				 	Strength exercise per week: <span th:text="${entry.value}"></span>
 				  				 </div>				  				 				  			
 				  			</div>
 				  			
